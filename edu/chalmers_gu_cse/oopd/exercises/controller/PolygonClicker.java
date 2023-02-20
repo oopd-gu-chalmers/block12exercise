@@ -1,7 +1,7 @@
 package edu.chalmers_gu_cse.oopd.exercises.controller;
 
 import edu.chalmers_gu_cse.oopd.exercises.polygonModel.PolygonModel;
-import edu.chalmers_gu_cse.oopd.exercises.polygonModel.polygon.PolygonFactory;
+import edu.chalmers_gu_cse.oopd.exercises.polygonModel.shapes.PolygonFactory;
 import edu.chalmers_gu_cse.oopd.exercises.view2d.PolygonViewer;
 
 import java.awt.*;
@@ -14,12 +14,11 @@ public class PolygonClicker {
 
     private final PolygonModel model;
 
-    public PolygonClicker(PolygonModel model, PolygonViewer view) {
+    public PolygonClicker(PolygonModel model) {
         this.model = model;
-        initInteraction(view);
     }
 
-    private void initInteraction(PolygonViewer view) {
+    public void initInteraction(PolygonViewer view) {
         view.addMouseListener(new PolygonCreator());
     }
 

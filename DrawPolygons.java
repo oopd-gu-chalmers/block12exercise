@@ -1,26 +1,32 @@
-/* This is now all we (can) use from the sub-package */
-import edu.chalmers_gu_cse.oopd.exercises.controller.PolygonClicker;
+/* Model- ... */
 import edu.chalmers_gu_cse.oopd.exercises.polygonModel.PolygonModel;
-import edu.chalmers_gu_cse.oopd.exercises.polygonModel.polygon.PolygonFactory;
+import edu.chalmers_gu_cse.oopd.exercises.polygonModel.shapes.*;
+/* -View- ... */
 import edu.chalmers_gu_cse.oopd.exercises.view2d.PolygonViewer;
-
-/* By commenting out the imports above, and instead importing the edu.chalmers_gu_cse.oopd.exercises.polygonModel.adapter package,
- * we effectively switch to using the DIT952.edu.chalmers_gu_cse.oopd.exercises.polygonModel.shapes package.
- */
-// import DIT952.edu.chalmers_gu_cse.oopd.exercises.polygonModel.adapter.*;
+/* -Controller */
+import edu.chalmers_gu_cse.oopd.exercises.controller.PolygonClicker;
 
 public class DrawPolygons {
 
     public static void main(String[] args) {
-        PolygonModel polygons = initModel();
-        PolygonViewer view = initViewForModel(polygons);
-        PolygonClicker controller = new PolygonClicker(polygons, view);
+        /* Create a new model. */
+        PolygonModel polygons = createModel();
+        /* Create a view that listens to the model and can display it. */
+        PolygonViewer view = createViewForModel(polygons);
+        /* Create a controller that sends signals to the model to create
+           and add new polygons.
+         */
+        PolygonClicker controller = new PolygonClicker(polygons);
+        /* Make sure that the controller listens to the correct event
+           in the UI.
+         */
+        controller.initInteraction(view);
 
         polygons.animate();
 
     }//main
 
-    public static PolygonModel initModel(){
+    public static PolygonModel createModel(){
         PolygonModel polygons = new PolygonModel();
 
         polygons.addPolygon(PolygonFactory.createSquare(50,50));
@@ -30,7 +36,7 @@ public class DrawPolygons {
         return polygons;
     }//initModel
 
-    private static PolygonViewer initViewForModel(PolygonModel polygonModel) {
+    private static PolygonViewer createViewForModel(PolygonModel polygonModel) {
         PolygonViewer view = new PolygonViewer();
         view.addModel(polygonModel);
         polygonModel.addListener(view);
