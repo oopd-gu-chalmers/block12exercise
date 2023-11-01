@@ -1,6 +1,6 @@
 package exercises.ex2arrays;
 
-public class Ex2Arrays {
+public class Arrays {
 
     /* The input functions */
     public static int[] getArrayOfIntsFromUser() {
