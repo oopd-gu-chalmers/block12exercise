@@ -16,7 +16,6 @@ import java.util.List;
         ticker++;
         int value = moveForwards ? 10 : -10;
         polygonSet.translate(value, value);
-        notifyListeners();
         if (ticker > 10) {
             moveForwards = !moveForwards;
             ticker = 0;
@@ -24,12 +23,15 @@ import java.util.List;
     }
 
     public void animate(){
-        try {
-            while (true) {
+        boolean running = true;
+        while (running) {
+            try {
                 Thread.sleep(500);
                 update();
+            } catch (InterruptedException e) {
+                running = false;
             }
-        } catch (InterruptedException e) {}
+        }
     }
 
     private final List<ModelUpdateListener> listeners = new ArrayList<>();
